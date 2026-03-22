@@ -18,5 +18,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Give permission
+        run: chmod +x mvnw
+
       - name: Build
         run: ./mvnw clean install
