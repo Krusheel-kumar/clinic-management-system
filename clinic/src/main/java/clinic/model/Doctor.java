@@ -1,6 +1,7 @@
 package clinic.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Doctor {
@@ -13,7 +14,9 @@ public class Doctor {
     private String specialization;
     private String email;
     private String phone;
-    private String availableTimes;
+
+    @ElementCollection
+    private List<String> availableTimes;
 
     // Getters
     public Long getId() { return id; }
@@ -21,7 +24,7 @@ public class Doctor {
     public String getSpecialization() { return specialization; }
     public String getEmail() { return email; }
     public String getPhone() { return phone; }
-    public String getAvailableTimes() { return availableTimes; }
+    public List<String> getAvailableTimes() { return availableTimes; }
 
     // Setters
     public void setId(Long id) { this.id = id; }
@@ -29,5 +32,5 @@ public class Doctor {
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setEmail(String email) { this.email = email; }
     public void setPhone(String phone) { this.phone = phone; }
-    public void setAvailableTimes(String availableTimes) { this.availableTimes = availableTimes; }
+    public void setAvailableTimes(List<String> availableTimes) { this.availableTimes = availableTimes; }
 }
