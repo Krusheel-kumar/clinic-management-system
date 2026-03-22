@@ -19,4 +19,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Build
-        run: mvn clean install
+        run: ./mvnw clean install
