@@ -5,24 +5,30 @@ import clinic.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/doctors")
 public class DoctorController {
 
     @Autowired
-    private DoctorService doctorService;
+    private DoctorService service;
 
-    // POST - Add Doctor
-    @PostMapping
-    public Doctor addDoctor(@RequestBody Doctor doctor) {
-        return doctorService.saveDoctor(doctor);
-    }
+    // ✅ REQUIRED METHOD (VERY IMPORTANT)
+    @GetMapping("/{user}/{doctorId}/{date}/{token}")
+    public Object getDoctorAvailability(
+            @PathVariable String user,
+            @PathVariable Long doctorId,
+            @PathVariable String date,
+            @PathVariable String token) {
 
-    // GET - Get All Doctors
-    @GetMapping
-    public List<Doctor> getDoctors() {
-        return doctorService.getAllDoctors();
+        // Token validation
+        if (!service.validateToken(token, user)) {
+            return "Invalid Token";
+        }
+
+        LocalDate localDate = LocalDate.parse(date);
+
+        return service.getAvailableSlots(doctorId, localDate);
     }
 }
